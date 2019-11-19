@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "task2": "nodemon parseCsv.js"
+    "task2": "nodemon parseCsv.js",
+    "reverseString": "nodemon reverseString"
   },
   "keywords": [],
   "author": "Maksim Severukhin",

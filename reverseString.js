@@ -1,13 +1,18 @@
-process.stdin.on('readable', () => {
-  let chunk;
+import readline from 'readline';
 
-  while ((chunk = process.stdin.read()) !== null) {
-    const reversedChunk = chunk.reverse();
-
-    process.stdout.write(`${reversedChunk}`);
-  }
+const rl = readline.createInterface({
+  input: process.stdin
 });
 
-process.stdin.on('end', () => {
-  process.stdout.write('end');
+rl.on('line', input => {
+  const reversed = input
+    .split('')
+    .reverse()
+    .join('');
+
+  console.log(`${reversed}`);
+});
+
+rl.on('close', () => {
+  process.exit(0);
 });

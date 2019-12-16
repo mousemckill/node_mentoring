@@ -4,12 +4,20 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "reverseString": "nodemon reverseString"
+    "task2": "nodemon --exec babel-node parseCsv.js",
+    "reverseString": "nodemon --exec babel-node reverseString.js"
   },
   "keywords": [],
   "author": "Maksim Severukhin",
   "license": "ISC",
   "devDependencies": {
+    "@babel/cli": "^7.7.4",
+    "@babel/core": "^7.7.4",
+    "@babel/node": "^7.7.4",
+    "@babel/preset-env": "^7.7.4",
     "nodemon": "^1.19.4"
+  },
+  "dependencies": {
+    "csvtojson": "^2.0.10"
   }
 }

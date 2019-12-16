@@ -1,6 +1,6 @@
-const path = require("path");
-const { createReadStream, createWriteStream } = require("fs");
-const csv = require("csvtojson");
+import path from "path";
+import { createReadStream, createWriteStream } from "fs";
+import csv from "csvtojson";
 
 const csvFilePath = path.resolve(
   "csv",

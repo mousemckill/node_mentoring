@@ -1,10 +1,7 @@
+import { createValidator } from "express-joi-validation";
 import * as Joi from "@hapi/joi";
 
-export const idSchema = Joi.object({
-  id: Joi.string()
-    .guid({ version: ["uuidv4"] })
-    .required()
-});
+const validator = createValidator({ passError: true });
 
 const password: any = Joi.extend(joi => ({
   type: "alphabetAndNumbers",
@@ -28,23 +25,15 @@ const password: any = Joi.extend(joi => ({
   }
 }));
 
-export const bodySchema = Joi.object({
-  login: Joi.string()
-    .min(2)
-    .required(),
-  password: password.alphabetAndNumbers().required(),
-  age: Joi.number()
-    .min(4)
-    .max(130)
-    .required()
-});
-
-export const loginSubstringSchema = Joi.object({
-  loginSubstring: Joi.string().required()
-});
-
-export const querySchema = Joi.object({
-  limit: Joi.number()
-    .min(1)
-    .required()
-});
+export default validator.body(
+  Joi.object({
+    login: Joi.string()
+      .min(2)
+      .required(),
+    password: password.alphabetAndNumbers().required(),
+    age: Joi.number()
+      .min(4)
+      .max(130)
+      .required()
+  })
+);

@@ -1,5 +1,12 @@
-import { Model, DataTypes } from "sequelize";
+import {
+  Model,
+  DataTypes,
+  HasManyGetAssociationsMixin,
+  Association
+} from "sequelize";
 import db from "../database";
+import { Group } from "./Group";
+import { UserGroups } from "./UserGroups";
 
 export class User extends Model {
   public id!: string;
@@ -10,6 +17,14 @@ export class User extends Model {
 
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
+
+  public getGroups!: HasManyGetAssociationsMixin<Group>;
+
+  public readonly groups?: Group[];
+
+  public static associations: {
+    groups: Association<User, Group>;
+  };
 }
 
 User.init(

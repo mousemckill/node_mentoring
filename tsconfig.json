@@ -14,7 +14,8 @@
       "@services/*": ["services/*"],
       "@validators/*": ["validators/*"],
       "@utils/*": ["utils/*"],
-      "@models/*": ["models/*"]
+      "@models/*": ["models/*"],
+      "@types": ["types"]
     }
   },
   "include": ["src/**/*"],

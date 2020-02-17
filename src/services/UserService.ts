@@ -1,16 +1,17 @@
 import uuid from "uuid";
 import { User } from "@models/User";
 import { Op } from "sequelize";
-
-interface IUser {
-  login: string;
-  age: number;
-  password: string;
-}
+import { IUser } from "@types";
 
 export default class UserService {
-  static async find(loginSubstring: string, limit: number) {
-    return await User.findAll({
+  userModel: typeof User;
+
+  constructor(UserModel: typeof User) {
+    this.userModel = UserModel;
+  }
+
+  async find(loginSubstring: string, limit: number) {
+    return await this.userModel.findAll({
       where: {
         login: {
           [Op.like]: `%${loginSubstring}%`
@@ -20,8 +21,8 @@ export default class UserService {
     });
   }
 
-  static async deleteUserById(id: string) {
-    let user = await UserService.findUserById(id);
+  async deleteUserById(id: string) {
+    let user = await this.findUserById(id);
 
     if (!user) {
       throw new Error("User not found");
@@ -32,8 +33,8 @@ export default class UserService {
     return user;
   }
 
-  static async updateUserById(id: string, { login, age, password }: IUser) {
-    let user = await UserService.findUserById(id);
+  async updateUserById(id: string, { login, age, password }: IUser) {
+    let user = await this.findUserById(id);
 
     if (!user) {
       throw new Error("User not found");
@@ -44,8 +45,8 @@ export default class UserService {
     return updatedUser;
   }
 
-  static async addUser({ login, age, password }: IUser) {
-    const user: User = await User.create({
+  async addUser({ login, age, password }: IUser) {
+    const user: User = await this.userModel.create({
       id: uuid.v4(),
       login,
       password,
@@ -55,8 +56,8 @@ export default class UserService {
     return user;
   }
 
-  static async findUserById(id: string) {
-    const user = await User.findByPk(id);
+  async findUserById(id: string) {
+    const user = await this.userModel.findByPk(id);
 
     return user;
   }

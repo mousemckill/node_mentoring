@@ -25,8 +25,6 @@ export default class GroupService {
       ...params
     });
 
-    console.log(group);
-
     return group;
   }
 

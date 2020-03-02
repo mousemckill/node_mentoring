@@ -3,6 +3,7 @@ import { ValidatedRequest, createValidator } from "express-joi-validation";
 import UserService from "@services/UserService";
 import { User } from "@models/User";
 import { UserApi } from "types/UserApi";
+import { apiLogger } from "middlewares/apiLogger";
 
 const validator = createValidator({ passError: true });
 const route = Router();
@@ -11,6 +12,7 @@ const userService = new UserService(User);
 
 export default (app: Router) => {
   app.use("/users", route);
+  route.use(apiLogger("UserApi"));
 
   route.get(
     "/:id",
@@ -20,10 +22,10 @@ export default (app: Router) => {
       const user = await userService.findUserById(id);
 
       if (!user) {
-        res.status(400).json({ message: "User not found" });
+        return res.status(400).json({ message: "User not found" });
       }
 
-      res.status(200).json(user);
+      return res.status(200).json(user);
     }
   );
 

@@ -1,28 +1,13 @@
-import { Router, NextFunction, Request, Response } from "express";
+import { Router } from "express";
 import user from "./user";
 import group from "./group";
-import { ExpressJoiError } from "express-joi-validation";
-
-const validationErrorHandler = (
-  err: any | ExpressJoiError,
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  if (err && err.error && err.error.isJoi) {
-    const e: ExpressJoiError = err;
-
-    res.status(400).json({
-      type: e.type,
-      message: e.error.toString()
-    });
-  } else {
-    next(err);
-  }
-};
+import { validationErrorHandler } from "middlewares/validationErrorHandler";
+import { serviceLogger } from "middlewares/serviceLogger";
 
 export default () => {
   const app = Router();
+
+  app.use(serviceLogger);
 
   user(app);
   group(app);

@@ -9,7 +9,6 @@ const password: any = Joi.extend(joi => ({
     "passwordComplexity.number": '"{{#label}}" must be contain some numbers'
   },
   validate(value, helpers) {
-    console.log({ value });
     if (!/[a-zA-Z]+/.test(value)) {
       return {
         value,

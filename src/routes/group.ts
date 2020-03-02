@@ -5,13 +5,14 @@ import { Group } from "@models/Group";
 import { User } from "@models/User";
 import { GroupApi } from "types/GroupApi";
 import { apiLogger } from "middlewares/apiLogger";
+import { checkToken } from "middlewares/checkToken";
 
 const route = Router();
 const groupService = new GroupService(Group, User);
 const validator = createValidator({ passError: true });
 
 export default (app: Router) => {
-  app.use("/groups", route);
+  app.use("/groups", checkToken, route);
   route.use(apiLogger("GroupApi"));
 
   route.get("/", (req: Request, res: Response) => {

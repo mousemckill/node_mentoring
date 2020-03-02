@@ -61,4 +61,12 @@ export default class UserService {
 
     return user;
   }
+
+  async findUserByLogin(login: string, password: string) {
+    const user = await this.userModel.findOne({
+      where: { login, password }
+    });
+
+    return user;
+  }
 }

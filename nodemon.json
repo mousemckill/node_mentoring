@@ -6,7 +6,7 @@
   ],
   "verbose": true,
   "execMap": {
-    "ts": "node --require ts-node/register --require tsconfig-paths/register"
+    "ts": "node --require ts-node/register --require tsconfig-paths/register -r dotenv/config"
   },
   "watch": [
     "src/"

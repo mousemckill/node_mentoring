@@ -1,6 +1,7 @@
 import { Router } from "express";
 import user from "./user";
 import group from "./group";
+import login from "./login";
 import { validationErrorHandler } from "middlewares/validationErrorHandler";
 import { serviceLogger } from "middlewares/serviceLogger";
 
@@ -11,6 +12,7 @@ export default () => {
 
   user(app);
   group(app);
+  login(app);
 
   app.use(validationErrorHandler);
 

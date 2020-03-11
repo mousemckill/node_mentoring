@@ -4,6 +4,7 @@ import UserService from "@services/UserService";
 import { User } from "@models/User";
 import { UserApi } from "types/UserApi";
 import { apiLogger } from "middlewares/apiLogger";
+import { checkToken } from "middlewares/checkToken";
 
 const validator = createValidator({ passError: true });
 const route = Router();
@@ -11,7 +12,7 @@ const route = Router();
 const userService = new UserService(User);
 
 export default (app: Router) => {
-  app.use("/users", route);
+  app.use("/users", checkToken, route);
   route.use(apiLogger("UserApi"));
 
   route.get(
